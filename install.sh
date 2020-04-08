@@ -8,9 +8,15 @@ if [ "`id -u`" != '0' ]; then
 fi
 
 cd $(dirname $0);
-cp --preserve=timestamps -fabTv ./src/ /
+mkdir -p /etc/sysconfig
+#cp --preserve=timestamps -fabTv ./src/ / # DO NOT USE THIS or it will break the entire system.
+cp --preserve=timestamps -fbv ./src/sbin/mandos-keyscript /sbin/mandos-keyscript
+cp --preserve=timestamps -fbv ./src/sbin/mandos-keyscript-poststart /sbin/mandos-keyscript-poststart
+cp --preserve=timestamps -fbv ./src/sbin//mandos-keyscript-start /sbin/mandos-keyscript-start
+cp --preserve=timestamps -fbv ./src/etc/sysconfig/mandos-keyscript /etc/sysconfig/mandos-keyscript
+cp --preserve=timestamps -fbv ./src/etc/systemd/system/mandos-keyscript.service /etc/systemd/system/mandos-keyscript.service
 if [ -f ./mandos-keyscript.sysconfig ]; then
-  cp --preserve=timestamps -fabv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
+  cp --preserve=timestamps -fbv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
 fi
 
 chmod -c 0755 \
