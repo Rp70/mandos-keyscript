@@ -13,13 +13,17 @@ MANDOS_CLIENT_PARAMS=""
 
 # Services to start after the main script started successfully.
 # You may need to disable autostart of the services before place them here.
-# Each service separated by a space.
+# For example: POSTSTART_SERVICES="drbd"
+# ---> disable drbd: sudo systemctl disable drbd
+#
+# Support mutiple services, each service separated by a space.
 # Default: POSTSTART_SERVICES=""
 POSTSTART_SERVICES=""
 
 # Kernel modules to check for loading before starting the above services.
 # mandos-keyscript doesn't load the kernel modules, it check for if they loaded or not.
-# Each Kernel module separated by a space.
+#
+# Support muitple modules, each Kernel module separated by a space.
 # Default: POSTSTART_KMODS=""
 POSTSTART_KMODS=""
 
