@@ -1,2 +1,5 @@
 # mandos-keyscript
-Mandos keyscript for systemd.service
+LUKS keyscript for systemd.service based on Mandos client
+
+## TODO
+- Passphrase cache
