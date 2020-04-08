@@ -1,0 +1,16 @@
+[Unit]
+Description=Mandos Keyscript
+After=network-online.target lvm2.service lvm2-lvmetad.service
+Before=zfs.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/sysconfig/mandos-keyscript
+ExecStart=/sbin/mandos-keyscript-start
+ExecStartPost=/sbin/mandos-keyscript-poststart
+TimeoutSec=120
+
+[Install]
+WantedBy=network.target
+#Also=systemd-networkd-wait-online.service

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+. /etc/sysconfig/mandos-keyscript
+
+PARAMS="\
+--delay=60 \
+--retry=10 \
+--pubkey=/etc/keys/mandos/pubkey.txt \
+--seckey=/etc/keys/mandos/seckey.txt \
+$MANDOS_CLIENT_PARAMS \
+"
+if [ "$MANDOS_SERVER" != '' ]; then
+  IP=`getent ahosts $MANDOS_SERVER | head -1 | awk '{print $1}'`
+  if [ "$IP" = '' ]; then
+    echo "No Mandos Server IP/Domain specified!";
+    exit 1;
+  fi
+  PARAMS="$PARAMS --connect=$IP:$MANDOS_PORT"
+fi
+
+/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS

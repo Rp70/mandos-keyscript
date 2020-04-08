@@ -1,0 +1,24 @@
+# Support hostname, FQDN, and IPs.
+# Default: MANDOS_SERVER=""
+MANDOS_SERVER=""
+
+# Mandos server port. Firewall on this machine should allow outbound on this port.
+# Firewall on Mandos server machine should allow inbound on this port.
+MANDOS_PORT=9601
+
+# Additional params to call mandos-client.
+# You can view mandos-client help to see available params: /usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client --help
+# Default: MANDOS_CLIENT_PARAMS="--delay=60 --retry=10 --pubkey=/etc/keys/mandos/pubkey.txt --seckey=/etc/keys/mandos/seckey.txt"
+MANDOS_CLIENT_PARAMS=""
+
+# Services to start after the main script started successfully.
+# You may need to disable autostart of the services before place them here.
+# Each service separated by a space.
+# Default: POSTSTART_SERVICES=""
+POSTSTART_SERVICES=""
+
+# Kernel modules to check for loading before starting the above services.
+# mandos-keyscript doesn't load the kernel modules, it check for if they loaded or not.
+# Each Kernel module separated by a space.
+# Default: POSTSTART_KMODS=""
+POSTSTART_KMODS=""

@@ -1,0 +1,4 @@
+# Ignore private configs
+mandos-keyscript.sysconfig
+
+tmp

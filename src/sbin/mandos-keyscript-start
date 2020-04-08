@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#/usr/bin/env bash
+set -e
+
+if ! [ -f /etc/crypttab ]; then
+  echo "/etc/crypttab does not exist. Please make sure that you created /etc/crypttab."
+  exit 1;
+fi
+
+for target in `grep '/sbin/mandos-keyscript' /etc/crypttab | awk '{print $1}'`; do
+  /usr/sbin/cryptdisks_start $target
+done
