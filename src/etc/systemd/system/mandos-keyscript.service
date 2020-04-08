@@ -9,7 +9,7 @@ Type=oneshot
 EnvironmentFile=/etc/sysconfig/mandos-keyscript
 ExecStart=/sbin/mandos-keyscript-start
 ExecStartPost=/sbin/mandos-keyscript-poststart
-TimeoutSec=120
+TimeoutSec=300
 
 [Install]
 WantedBy=network-online.target
