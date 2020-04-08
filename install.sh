@@ -8,11 +8,26 @@ if [ "`id -u`" != '0' ]; then
 fi
 
 cd $(dirname $0);
-cp -fabTv ./src/ /
+cp --preserve=timestamps -fabTv ./src/ /
 if [ -f ./mandos-keyscript.sysconfig ]; then
-  cp -fabv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
+  cp --preserve=timestamps -fabv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
 fi
 
+chmod -c 0755 \
+  /sbin/mandos-keyscript \
+  /sbin/mandos-keyscript-poststart \
+  /sbin/mandos-keyscript-start
+
+chmod -c 0644 \
+  /etc/sysconfig/mandos-keyscript \
+  /etc/systemd/system/mandos-keyscript.service
+
+chown -c root.root \
+  /sbin/mandos-keyscript \
+  /sbin/mandos-keyscript-poststart \
+  /sbin/mandos-keyscript-start \
+  /etc/sysconfig/mandos-keyscript \
+  /etc/systemd/system/mandos-keyscript.service
 
 # Re-enable in case we change mandos-keyscript.service 
 if [ "`systemctl is-enabled mandos-keyscript`" = 'enabled' ]; then
