@@ -12,5 +12,5 @@ ExecStartPost=/sbin/mandos-keyscript-poststart
 TimeoutSec=120
 
 [Install]
-WantedBy=network.target
-#Also=systemd-networkd-wait-online.service
+WantedBy=network-online.target
+Also=systemd-networkd-wait-online.service

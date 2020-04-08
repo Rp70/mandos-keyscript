@@ -22,3 +22,7 @@ POSTSTART_SERVICES=""
 # Each Kernel module separated by a space.
 # Default: POSTSTART_KMODS=""
 POSTSTART_KMODS=""
+
+# Command to run after the above services started.
+# Example: POSTSTART_CMD="drbdadm primary --force all && zpool import -a"
+POSTSTART_CMD=""
