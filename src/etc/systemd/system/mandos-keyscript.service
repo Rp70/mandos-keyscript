@@ -1,13 +1,9 @@
 [Unit]
 Description=Mandos Keyscript
 After=network-online.target
-#After=lvm2.service
-#After=lvm2-lvmetad.service
 Before=cryptsetup.target
 Before=drbd.service
 Before=zfs-load-module.service
-#Before=local-fs.target
-#Before=systemd-cryptsetup.service
 Wants=network-online.target
 
 

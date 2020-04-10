@@ -15,6 +15,7 @@ cp --preserve=timestamps -fbv ./src/sbin/mandos-keyscript-poststart /sbin/mandos
 cp --preserve=timestamps -fbv ./src/sbin//mandos-keyscript-start /sbin/mandos-keyscript-start
 cp --preserve=timestamps -fbv ./src/etc/sysconfig/mandos-keyscript /etc/sysconfig/mandos-keyscript
 cp --preserve=timestamps -fbv ./src/etc/systemd/system/mandos-keyscript.service /etc/systemd/system/mandos-keyscript.service
+cp --preserve=timestamps -fbv ./src/etc/systemd/system/mandos-keyscript-drbd-zfs.service /etc/systemd/system/mandos-keyscript-drbd-zfs.service
 if [ -f ./mandos-keyscript.sysconfig ]; then
   cp --preserve=timestamps -fbv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
 fi
@@ -26,18 +27,18 @@ chmod -c 0755 \
 
 chmod -c 0644 \
   /etc/sysconfig/mandos-keyscript \
-  /etc/systemd/system/mandos-keyscript.service
+  /etc/systemd/system/mandos-keyscript.service \
+  /etc/systemd/system/mandos-keyscript-drbd-zfs.service
 
 chown -c root.root \
   /sbin/mandos-keyscript \
   /sbin/mandos-keyscript-poststart \
   /sbin/mandos-keyscript-start \
   /etc/sysconfig/mandos-keyscript \
-  /etc/systemd/system/mandos-keyscript.service
+  /etc/systemd/system/mandos-keyscript.service \
+  /etc/systemd/system/mandos-keyscript-drbd-zfs.service
 
-# Re-enable in case we change mandos-keyscript.service 
-if [ "`systemctl is-enabled mandos-keyscript`" = 'enabled' ]; then
-  systemctl disable mandos-keyscript
-  systemctl enable mandos-keyscript
-fi
-
+systemctl disable mandos-keyscript
+systemctl enable mandos-keyscript
+systemctl disable mandos-keyscript-drbd-zfs
+systemctl enable mandos-keyscript-drbd-zfs
