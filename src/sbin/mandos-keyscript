@@ -2,6 +2,19 @@
 
 set -e
 
+KSPPCNT=`systemctl --system show-environment | grep '^KSPPCNT=' | awk -F= '{print $2}'`
+if [ "$KSPPCNT" = '' ]; then
+  KSPPCNT=0
+fi
+KSPPCNT=$(( KSPPCNT + 1))
+
+KSPP=`systemctl --system show-environment | grep '^KSPP=' | awk -F= '{print $2}'`
+if [ "$KSPP" != '' ]; then
+  echo -n $KSPP;
+  systemctl --system set-environment KSPPCNT=$KSPPCNT
+  exit 0;
+fi
+
 . /etc/sysconfig/mandos-keyscript
 
 PARAMS="\
@@ -20,4 +33,8 @@ if [ "$MANDOS_SERVER" != '' ]; then
   PARAMS="$PARAMS --connect=$IP:$MANDOS_PORT"
 fi
 
-/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS
+KSPP=`/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS`
+systemctl --system set-environment KSPP=$KSPP
+systemctl --system set-environment KSPPCNT=$KSPPCNT
+echo -n $KSPP;
+exit 0;

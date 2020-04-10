@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#/usr/bin/env bash
+
 set -e
 
 if ! [ -f /etc/crypttab ]; then
@@ -10,3 +10,32 @@ fi
 for target in `grep '/sbin/mandos-keyscript' /etc/crypttab | awk '{print $1}'`; do
   /usr/sbin/cryptdisks_start $target
 done
+
+
+if [ "$POSTSTART_SERVICES" = '' ]; then
+  echo "No services defined. This is not an error. You can optionally define POSTSTART_SERVICES in /etc/sysconfig/mandos-keyscript. Exit.";
+fi
+
+
+for kmod in "$POSTSTART_KMODS"; do
+  WAITTIME=30
+  while [ "$WAITTIME" -gt 0 ]; do
+    if [ "`lsmod | grep \"^$kmod\s\" | awk '{print $1}'`" = '' ]; then
+      WAITTIME=$((WAITTIME-1));
+      sleep 1;
+    else
+      echo "$kmod loaded"
+      break;
+    fi
+  done
+done
+
+
+for service in "$POSTSTART_SERVICES"; do
+  /bin/systemctl start $service
+done
+
+
+if [ "$POSTSTART_CMD" != '' ]; then
+  eval $POSTSTART_CMD
+fi

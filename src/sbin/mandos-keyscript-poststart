@@ -2,33 +2,5 @@
 
 set -e
 
-. /etc/sysconfig/mandos-keyscript
-
-if [ "$POSTSTART_SERVICES" = '' ]; then
-  echo "No services defined. This is not an error. You can optionally define POSTSTART_SERVICES in /etc/sysconfig/mandos-keyscript. Exit.";
-  exit 0;
-fi
-
-
-for kmod in "$POSTSTART_KMODS"; do
-  WAITTIME=30
-  while [ "$WAITTIME" -gt 0 ]; do
-    if [ "`lsmod | grep \"^$kmod\s\" | awk '{print $1}'`" = '' ]; then
-      WAITTIME=$((WAITTIME-1));
-      sleep 1;
-    else
-      echo "$kmod loaded"
-      break;
-    fi
-  done
-done
-
-
-for service in "$POSTSTART_SERVICES"; do
-  /bin/systemctl start $service
-done
-
-
-if [ "$POSTSTART_CMD" != '' ]; then
-  eval $POSTSTART_CMD
-fi
+systemctl --system show-environment
+systemctl --system unset-environment KSPP
