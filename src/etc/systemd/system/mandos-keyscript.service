@@ -3,6 +3,7 @@ Description=Mandos Keyscript
 After=network-online.target
 Before=cryptsetup.target
 Before=drbd.service
+Before=mandos-keyscript-drbd-zfs.service
 Before=zfs-load-module.service
 Wants=network-online.target
 
@@ -18,6 +19,7 @@ TimeoutSec=300
 [Install]
 WantedBy=cryptsetup.target
 WantedBy=drbd.service
+WantedBy=mandos-keyscript-drbd-zfs.service
 WantedBy=zfs-load-module.service
 #WantedBy=network-online.target
 #Also=systemd-networkd-wait-online.service

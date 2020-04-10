@@ -3,6 +3,7 @@ Description=Mandos Keyscript - starting DRBD then ZFS
 After=mandos-keyscript.service
 After=drbd.service
 Before=zfs-load-module.service
+Wants=mandos-keyscript.service
 Wants=drbd.service
 
 
