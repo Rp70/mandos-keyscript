@@ -1,13 +1,12 @@
 [Unit]
 Description=Mandos Keyscript
 After=network-online.target
-After=lvm2.service
-After=lvm2-lvmetad.service
 Before=cryptsetup.target
-Before=local-fs.target
-Before=zfs.target
-Before=systemd-cryptsetup.service
+Before=drbd.service
+Before=mandos-keyscript-drbd-zfs.service
+Before=zfs-load-module.service
 Wants=network-online.target
+
 
 [Service]
 Type=oneshot
@@ -16,6 +15,11 @@ ExecStart=/sbin/mandos-keyscript-start
 ExecStartPost=/sbin/mandos-keyscript-poststart
 TimeoutSec=300
 
+
 [Install]
-WantedBy=network-online.target
-Also=systemd-networkd-wait-online.service
+WantedBy=cryptsetup.target
+WantedBy=drbd.service
+WantedBy=mandos-keyscript-drbd-zfs.service
+WantedBy=zfs-load-module.service
+#WantedBy=network-online.target
+#Also=systemd-networkd-wait-online.service
