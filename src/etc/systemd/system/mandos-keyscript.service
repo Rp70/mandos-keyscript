@@ -21,5 +21,3 @@ WantedBy=cryptsetup.target
 WantedBy=drbd.service
 WantedBy=mandos-keyscript-drbd-zfs.service
 WantedBy=zfs-load-module.service
-#WantedBy=network-online.target
-#Also=systemd-networkd-wait-online.service
