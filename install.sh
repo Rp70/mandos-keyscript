@@ -20,23 +20,30 @@ if [ -f ./mandos-keyscript.sysconfig ]; then
   cp --preserve=timestamps -fbv ./mandos-keyscript.sysconfig /etc/sysconfig/mandos-keyscript
 fi
 
-chmod -c 0755 \
+chmod -cv 0755 \
   /sbin/mandos-keyscript \
   /sbin/mandos-keyscript-poststart \
   /sbin/mandos-keyscript-start
 
-chmod -c 0644 \
+chmod -cv 0644 \
   /etc/sysconfig/mandos-keyscript \
   /etc/systemd/system/mandos-keyscript.service \
   /etc/systemd/system/mandos-keyscript-drbd-zfs.service
 
-chown -c root.root \
+chown -cv root.root \
   /sbin/mandos-keyscript \
   /sbin/mandos-keyscript-poststart \
   /sbin/mandos-keyscript-start \
   /etc/sysconfig/mandos-keyscript \
   /etc/systemd/system/mandos-keyscript.service \
   /etc/systemd/system/mandos-keyscript-drbd-zfs.service
+
+# Disable mandos-client initramfs tools
+chmod -cv 0 \
+  /usr/share/initramfs-tools/conf-hooks.d/mandos \
+  /usr/share/initramfs-tools/hooks/mandos \
+  /usr/share/initramfs-tools/scripts/init-premount/mandos \
+  /usr/share/lintian/overrides/mandos-client
 
 systemctl disable mandos-keyscript
 systemctl enable mandos-keyscript
