@@ -8,6 +8,7 @@ if [ "`id -u`" != '0' ]; then
 fi
 
 cd $(dirname $0);
+echo "Source: `pwd`"
 mkdir -p /etc/sysconfig
 #cp --preserve=timestamps -fabTv ./src/ / # DO NOT USE THIS or it will break the entire system.
 cp --preserve=timestamps -fbv ./src/sbin/mandos-keyscript /sbin/mandos-keyscript
