@@ -1,15 +1,25 @@
 # Support hostname, FQDN, and IPs.
+#
 # Default: MANDOS_SERVER=""
 MANDOS_SERVER=""
 
 # Mandos server port. Firewall on this machine should allow outbound on this port.
 # Firewall on Mandos server machine should allow inbound on this port.
+#
+# Default: MANDOS_PORT=""
 MANDOS_PORT=9601
 
-# Additional params to call mandos-client.
+# Additional params to call mandos-client or you can specify in /etc/mandos/plugin-runner.conf
 # You can view mandos-client help to see available params: /usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client --help
+#
 # Default: MANDOS_CLIENT_PARAMS="--delay=60 --retry=10 --pubkey=/etc/keys/mandos/pubkey.txt --seckey=/etc/keys/mandos/seckey.txt"
 MANDOS_CLIENT_PARAMS=""
+
+# Network interface that will be used to search for Mandos servers
+# You can specify --interface=NAME in MANDOS_CLIENT_PARAMS or in /etc/mandos/plugin-runner.conf
+#
+# Default: MANDOS_CLIENT_INTERFACE="auto" ---> Auto detect active interface.
+MANDOS_CLIENT_INTERFACE="auto"
 
 # Services to start after the main script started successfully.
 # You may need to disable autostart of the services before place them here.
@@ -29,4 +39,6 @@ POSTSTART_KMODS=""
 
 # Command to run after the above services started.
 # Example: POSTSTART_CMD="drbdadm primary --force all && zpool import -a"
+#
+# Default: POSTSTART_KMODS=""
 POSTSTART_CMD=""

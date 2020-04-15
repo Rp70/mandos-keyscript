@@ -17,6 +17,13 @@ fi
 
 . /etc/sysconfig/mandos-keyscript
 
+if [ "$MANDOS_CLIENT_INTERFACE" = 'auto' ]; then
+  MANDOS_CLIENT_INTERFACE=`ip -4 route ls | grep default | awk '{print $5}'`
+fi
+if [ "$MANDOS_CLIENT_INTERFACE" != '' ]; then
+  MANDOS_CLIENT_PARAMS="--interface=$MANDOS_CLIENT_INTERFACE $MANDOS_CLIENT_PARAMS"
+fi
+
 PARAMS="\
 --delay=60 \
 --retry=10 \
@@ -32,7 +39,7 @@ if [ "$MANDOS_SERVER" != '' ]; then
   fi
   PARAMS="$PARAMS --connect=$IP:$MANDOS_PORT"
 fi
-
+echo $PARAMS;exit;
 KSPP=`/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS`
 systemctl --system set-environment KSPP=$KSPP
 systemctl --system set-environment KSPPCNT=$KSPPCNT
