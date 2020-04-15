@@ -40,7 +40,7 @@ if [ "$MANDOS_SERVER" != '' ]; then
   PARAMS="$PARAMS --connect=$IP:$MANDOS_PORT"
 fi
 
-KSPP=`/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS`
+KSPP=`/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS $@`
 systemctl --system set-environment KSPP=$KSPP
 systemctl --system set-environment KSPPCNT=$KSPPCNT
 echo -n $KSPP;
