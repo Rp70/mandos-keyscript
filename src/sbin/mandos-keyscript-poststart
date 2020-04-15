@@ -2,5 +2,8 @@
 
 set -e
 
-systemctl --system show-environment
+# show-environment will leak the passphrase
+# DO NOT un-comment this until you know what you are doing.
+#systemctl --system show-environment
+
 systemctl --system unset-environment KSPP

@@ -13,7 +13,7 @@ done
 
 
 if [ "$POSTSTART_SERVICES" = '' ]; then
-  echo "No services defined. This is not an error. You can optionally define POSTSTART_SERVICES in /etc/sysconfig/mandos-keyscript. Exit.";
+  echo "INFO: You can optionally define POSTSTART_SERVICES in /etc/sysconfig/mandos-keyscript.";
 fi
 
 
