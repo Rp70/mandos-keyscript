@@ -40,8 +40,9 @@ if [ "$MANDOS_SERVER" != '' ]; then
   PARAMS="$PARAMS --connect=$IP:$MANDOS_PORT"
 fi
 
-if [ "$@" != 'none' ]; then
-  PARAMS="$PARAMS $@"
+ARGS="$@"
+if [ "$ARGS" != 'none' ]; then
+  PARAMS="$PARAMS $ARGS"
 fi
 
 KSPP=`/usr/lib/x86_64-linux-gnu/mandos/plugins.d/mandos-client $PARAMS`
